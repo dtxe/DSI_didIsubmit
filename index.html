@@ -197,7 +197,42 @@
         }
         window.module = null;
 
+        function init_collapse(id) {
+            let e = document.getElementById(id);
+            let c = new bootstrap.Collapse(e, { toggle: false });
+
+            // scroll to view after shown
+            e.addEventListener('shown.bs.collapse', function () {
+                e.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            return c;
+        }
+
+        window.c_success = init_collapse('msg_success');
+        window.c_uoftrepo = init_collapse('msg_uoftrepo');
+        window.c_closeuoftrepo = init_collapse('msg_closeuoftrepo');
+        window.c_fail = init_collapse('msg_fail');
+        window.c_ownrepos = init_collapse('card_ownrepos');
+
+        function show_main() {
+            if (window.username && window.module) {
+                window.c_ownrepos.show();
+            }
+        }
+
         function update_links() {
+            // hide all collapses
+            window.c_success.hide();
+            window.c_uoftrepo.hide();
+            window.c_closeuoftrepo.hide();
+            window.c_fail.hide();
+
+            document.querySelectorAll('input[type=radio]').forEach(function (el) {
+                el.checked = false;
+            });
+
+            // update the main link
             document.getElementById('url_orgsearch').href = `https://github.com/UofT-DSI/${window.module}/pulls/${window.username}`;
             window.localStorage.setItem('username', window.username);
 
@@ -221,30 +256,6 @@
                     </p>`;
             }
             document.getElementById('mainlink_element').innerHTML = mainlink_html;
-        }
-
-        function init_collapse(id) {
-            let e = document.getElementById(id);
-            let c = new bootstrap.Collapse(e, { toggle: false });
-
-            // scroll to view after shown
-            e.addEventListener('shown.bs.collapse', function () {
-                e.scrollIntoView({ behavior: 'smooth' });
-            });
-
-            return c;
-        }
-
-        window.c_success = init_collapse('msg_success');
-        window.c_uoftrepo = init_collapse('msg_uoftrepo');
-        window.c_closeuoftrepo = init_collapse('msg_closeuoftrepo');
-        window.c_fail = init_collapse('msg_fail');
-        window.c_ownrepos = init_collapse('card_ownrepos');
-
-        function show_main() {
-            if (window.username && window.module) {
-                window.c_ownrepos.show();
-            }
         }
 
         // bind the frm_username
