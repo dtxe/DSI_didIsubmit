@@ -202,7 +202,24 @@
             window.localStorage.setItem('username', window.username);
         }
 
-        window.c_ownrepos = new bootstrap.Collapse(document.getElementById('card_ownrepos'), { toggle: false });
+        function init_collapse(id) {
+            let e = document.getElementById(id);
+            let c = new bootstrap.Collapse(e, { toggle: false });
+
+            // scroll to view after shown
+            e.addEventListener('shown.bs.collapse', function () {
+                e.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            return c;
+        }
+        
+        window.c_success = init_collapse('msg_success');
+        window.c_uoftrepo = init_collapse('msg_uoftrepo');
+        window.c_closeuoftrepo = init_collapse('msg_closeuoftrepo');
+        window.c_fail = init_collapse('msg_fail');
+        window.c_ownrepos = init_collapse('card_ownrepos');
+
         function show_main() {
             if (window.username && window.module) {
                 window.c_ownrepos.show();
@@ -229,12 +246,7 @@
             show_main();
         });
 
-        // bind btn_ownpulls
-        window.c_success = new bootstrap.Collapse(document.getElementById('msg_success'), { toggle: false });
-        window.c_uoftrepo = new bootstrap.Collapse(document.getElementById('msg_uoftrepo'), { toggle: false });
-        window.c_closeuoftrepo = new bootstrap.Collapse(document.getElementById('msg_closeuoftrepo'), { toggle: false });
-        window.c_fail = new bootstrap.Collapse(document.getElementById('msg_fail'), { toggle: false });
-
+        // bind buttons
         document.getElementById('btnradio1').addEventListener('click', function () {
             window.c_success.show();
             window.c_uoftrepo.hide();
@@ -252,12 +264,17 @@
             window.c_uoftrepo.show();
             window.c_closeuoftrepo.show();
             window.c_fail.hide();
+
+            // scroll to the bottom
+            window.scrollTo(0, document.body.scrollHeight);
         });
         document.getElementById('utr_btn2').addEventListener('click', function () {
             window.c_success.hide();
             window.c_uoftrepo.show();
             window.c_closeuoftrepo.hide();
             window.c_fail.show();
+
+            window.scrollTo(0, document.body.scrollHeight);
         });
     </script>
 
