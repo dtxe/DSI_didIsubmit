@@ -123,14 +123,14 @@
                 </div>
             </div>
             <div class="col-12 collapse" id="msg_uoftrepo">
-                <div class="card p-5 mt-5">
+                <div class="card border-warning p-5 mt-5">
                     <p>
                         Did you erroneously submit your PR in the UofT-DSI repo?
                     </p>
-                    <p>
-                        <a class="mainlink" href="https://github.com/search" target="_blank"
-                            id="url_orgsearch">https://github.com/search?q=is:pr+is:open+repo:UofT-DSI/<span
-                                class="text-blue fw-bold txt_module">shell</span>+author:<span
+                    <p style="font-size:2rem">
+                        <a class="mainlink" href="https://github.com/UofT-DSI" target="_blank"
+                            id="url_orgsearch">https://github.com/UofT-DSI/<span
+                                class="text-blue fw-bold txt_module">shell</span>/pulls/<span
                                 class="text-purple fw-bold txt_username">dtxe</span></a>
                     </p>
 
@@ -198,7 +198,7 @@
 
         function update_links() {
             document.getElementById('url_pulls').href = `https://github.com/${window.username}/${window.module}/pulls`;
-            document.getElementById('url_orgsearch').href = `https://github.com/search?q=is:pr+is:open+repo:UofT-DSI/${window.module}+author:${window.username}`;
+            document.getElementById('url_orgsearch').href = `https://github.com/UofT-DSI/${window.module}/pulls/${window.username}`;
             window.localStorage.setItem('username', window.username);
         }
 
@@ -213,7 +213,7 @@
 
             return c;
         }
-        
+
         window.c_success = init_collapse('msg_success');
         window.c_uoftrepo = init_collapse('msg_uoftrepo');
         window.c_closeuoftrepo = init_collapse('msg_closeuoftrepo');
