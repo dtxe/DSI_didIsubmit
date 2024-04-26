@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Did I submit this correctly?</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Fira Code", monospace;
+            font-optical-sizing: auto;
+            font-weight: normal;
+            font-style: normal;
+
+            font-size: 1.5rem;
+
+            margin-top: 5rem;
+        }
+
+        .entry {
+            text-align: center;
+            font-size: 2rem;
+            padding: 0.7 rem;
+        }
+
+        .border-purple {
+            border: #6f42c1 3px solid;
+        }
+
+        .text-purple-dark {
+            color: #422970;
+        }
+
+        .text-purple {
+            color: #6f42c1;
+        }
+
+        .border-blue {
+            border: #007bff 3px solid;
+        }
+
+        .text-blue-dark {
+            color: #0056b3;
+        }
+
+        .text-blue {
+            color: #007bff;
+        }
+
+        .mainlink {
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1>Did I submit this correctly?</h1>
+        <p>A (beta) step-by-step guide.</p>
+
+
+        <div class="row mt-5">
+            <div class="col">
+                <div class="card border-purple p-5">
+                    <label for="username" class="fw-bold text-purple-dark">Enter your GitHub
+                        username</label><br>
+                    <input type="text" class="form-control entry text-purple" id="frm_username"
+                        aria-describedby="button-addon2">
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-blue p-5">
+                    <label for="module" class="fw-bold text-blue-dark">Select the course module</label><br>
+                    <select class="form-control entry text-blue" id="frm_module">
+                        <option></option>
+                        <option>shell</option>
+                        <option>git</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <div class="card p-5 mt-5 collapse" id="card_ownrepos">
+                    <p>
+                        Do you see your assignment submission here?
+                    </p>
+                    <p style="font-size: 2rem">
+                        <a class="mainlink" href="https://github.com" target="_blank"
+                            id="url_pulls">https://github.com/<span class="text-purple fw-bold txt_username">[your
+                                username]</span>/<span class="text-blue fw-bold txt_module">[module
+                                name]</span>/pulls</a>
+                    </p>
+
+                    <div class="btn-group mt-5 w-50 mx-auto" role="group" aria-label="Basic radio toggle button group"
+                        id="btns_ownpulls">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="btnradio1">Yes 🎉</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="btnradio2">No 😓</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col collapse" id="msg_success">
+                <div class="card border-success p-5 mt-5 text-success">
+                    <p>
+                        ✅ Congratulations! You have successfully submitted your assignment!
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 collapse" id="msg_uoftrepo">
+                <div class="card p-5 mt-5">
+                    <p>
+                        Did you erroneously submit your PR in the UofT-DSI repo?
+                    </p>
+                    <p>
+                        <a class="mainlink" href="https://github.com/search" target="_blank"
+                            id="url_orgsearch">https://github.com/search?q=is:pr+is:open+repo:UofT-DSI/<span
+                                class="text-blue fw-bold txt_module">shell</span>+author:<span
+                                class="text-purple fw-bold txt_username">dtxe</span></a>
+                    </p>
+
+                    <div class="btn-group mt-5 w-50 mx-auto" role="group" aria-label="Basic radio toggle button group"
+                        id="btn_uoftpulls">
+                        <input type="radio" class="btn-check" name="utr_btn" id="utr_btn1" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="utr_btn1">Yes 😬</label>
+
+                        <input type="radio" class="btn-check" name="utr_btn" id="utr_btn2" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="utr_btn2">No 🤷</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 collapse" id="msg_closeuoftrepo">
+                <div class="card border-danger p-5 mt-5">
+                    <p>
+                        ❌ Oops! It seems you have submitted your pull request to the UofT-DSI repo instead of your own
+                        fork.<br><br>
+                        Please close the pull request in the UofT-DSI repo and submit it to your own fork: <br>
+                        <a href="https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments"
+                            class="fs-6">https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 collapse" id="msg_fail">
+                <div class="card border-danger p-5 mt-5">
+                    <p>
+                        ❌ Oops! It seems you have not submitted your assignment yet.<br><br>
+                        Please see this document for submission instructions:<br>
+                        <a href="https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments"
+                            class="fs-6">https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments</a>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 10rem; font-size: 0.8rem;">
+            <p class="small">Disclaimer: This is an unofficial tool. Please refer to the official <a
+                    href="https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md"
+                    target="_blank">Onboarding
+                    documents</a>
+                for
+                confirmation.</p>
+        </footer>
+
+    </div>
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script>
+        window.username = window.localStorage.getItem('username');
+        if (window.username) {
+            document.getElementById('frm_username').value = window.username;
+            document.querySelectorAll('.txt_username').forEach(function (el) {
+                el.innerHTML = window.username;
+            });
+        } else {
+            window.username = null;
+        }
+        window.module = null;
+
+        function update_links() {
+            document.getElementById('url_pulls').href = `https://github.com/${window.username}/${window.module}/pulls`;
+            document.getElementById('url_orgsearch').href = `https://github.com/search?q=is:pr+is:open+repo:UofT-DSI/${window.module}+author:${window.username}`;
+            window.localStorage.setItem('username', window.username);
+        }
+
+        window.c_ownrepos = new bootstrap.Collapse(document.getElementById('card_ownrepos'), { toggle: false });
+        function show_main() {
+            if (window.username && window.module) {
+                window.c_ownrepos.show();
+            }
+        }
+
+        // bind the frm_username
+        document.getElementById('frm_username').addEventListener('keyup', function () {
+            window.username = this.value;
+            document.querySelectorAll('.txt_username').forEach(function (el) {
+                el.innerHTML = window.username;
+            });
+            update_links();
+            show_main();
+        });
+
+        // bind the frm_module
+        document.getElementById('frm_module').addEventListener('change', function () {
+            window.module = this.value;
+            document.querySelectorAll('.txt_module').forEach(function (el) {
+                el.innerHTML = window.module;
+            });
+            update_links();
+            show_main();
+        });
+
+        // bind btn_ownpulls
+        window.c_success = new bootstrap.Collapse(document.getElementById('msg_success'), { toggle: false });
+        window.c_uoftrepo = new bootstrap.Collapse(document.getElementById('msg_uoftrepo'), { toggle: false });
+        window.c_closeuoftrepo = new bootstrap.Collapse(document.getElementById('msg_closeuoftrepo'), { toggle: false });
+        window.c_fail = new bootstrap.Collapse(document.getElementById('msg_fail'), { toggle: false });
+
+        document.getElementById('btnradio1').addEventListener('click', function () {
+            window.c_success.show();
+            window.c_uoftrepo.hide();
+            window.c_closeuoftrepo.hide();
+            window.c_fail.hide();
+        });
+        document.getElementById('btnradio2').addEventListener('click', function () {
+            window.c_success.hide();
+            window.c_uoftrepo.show();
+            window.c_closeuoftrepo.hide();
+            window.c_fail.hide();
+        });
+        document.getElementById('utr_btn1').addEventListener('click', function () {
+            window.c_success.hide();
+            window.c_uoftrepo.show();
+            window.c_closeuoftrepo.show();
+            window.c_fail.hide();
+        });
+        document.getElementById('utr_btn2').addEventListener('click', function () {
+            window.c_success.hide();
+            window.c_uoftrepo.show();
+            window.c_closeuoftrepo.hide();
+            window.c_fail.show();
+        });
+    </script>
+
+</body>
+
+</html>
