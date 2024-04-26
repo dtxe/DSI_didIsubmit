@@ -59,6 +59,7 @@
             text-decoration: none;
             color: #000;
         }
+
         .mainlink:hover {
             text-decoration: underline;
         }
@@ -87,7 +88,6 @@
                         <option></option>
                         <option>shell</option>
                         <option>git</option>
-                        <option>git_assignment</option>
                     </select>
                 </div>
             </div>
@@ -99,12 +99,7 @@
                     <p>
                         Do you see your assignment submission here?
                     </p>
-                    <p style="font-size: 2rem">
-                        <a class="mainlink" href="https://github.com" target="_blank"
-                            id="url_pulls">https://github.com/<span class="text-purple fw-bold txt_username">[your
-                                username]</span>/<span class="text-blue fw-bold txt_module">[module
-                                name]</span>/pulls</a>
-                    </p>
+                    <div id="mainlink_element"></div>
 
                     <div class="btn-group mt-5 w-50 mx-auto" role="group" aria-label="Basic radio toggle button group"
                         id="btns_ownpulls">
@@ -155,7 +150,8 @@
                         fork.<br><br>
                         Please close the pull request in the UofT-DSI repo and submit it to your own fork: <br>
                         <a href="https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments"
-                            class="fs-6">https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments</a>
+                            class="fs-6"
+                            target="_blank">https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments</a>
                     </p>
                 </div>
             </div>
@@ -165,7 +161,8 @@
                         ❌ Oops! It seems you have not submitted your assignment yet.<br><br>
                         Please see this document for submission instructions:<br>
                         <a href="https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments"
-                            class="fs-6">https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments</a>
+                            class="fs-6"
+                            target="_blank">https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#submitting-assignments</a>
 
                     </p>
                 </div>
@@ -201,9 +198,29 @@
         window.module = null;
 
         function update_links() {
-            document.getElementById('url_pulls').href = `https://github.com/${window.username}/${window.module}/pulls`;
             document.getElementById('url_orgsearch').href = `https://github.com/UofT-DSI/${window.module}/pulls/${window.username}`;
             window.localStorage.setItem('username', window.username);
+
+            let mainlink_html;
+            if (window.module == 'git') {
+                // special exception for git
+                mainlink_html = `<p style="font-size: 2rem">
+                        <a class="mainlink" href="https://github.com/${window.username}/git/pulls" target="_blank"
+                            id="url_pulls">https://github.com/<span class="text-purple fw-bold">${window.username}</span>/<span class="text-blue fw-bold">git</span>/pulls</a>
+                    </p>
+                    <p>- OR -</p>
+                    <p style="font-size: 2rem">
+                        <a class="mainlink" href="https://github.com/${window.username}/git_assignment/pulls" target="_blank"
+                            id="url_pulls">https://github.com/<span class="text-purple fw-bold">${window.username}</span>/<span class="text-blue fw-bold">git_assignment</span>/pulls</a>
+                    </p>`;
+            } else {
+                mainlink_html = `
+                    <p style="font-size: 2rem">
+                        <a class="mainlink" href="https://github.com/${window.username}/${window.module}/pulls" target="_blank"
+                            id="url_pulls">https://github.com/<span class="text-purple fw-bold">${window.username}</span>/<span class="text-blue fw-bold">${window.module}</span>/pulls</a>
+                    </p>`;
+            }
+            document.getElementById('mainlink_element').innerHTML = mainlink_html;
         }
 
         function init_collapse(id) {
