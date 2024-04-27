@@ -128,7 +128,7 @@
                     <p style="font-size:2rem">
                         <a class="mainlink" href="https://github.com/UofT-DSI" target="_blank"
                             id="url_orgsearch">https://github.com/UofT-DSI/<span
-                                class="text-blue fw-bold txt_module">shell</span>/pulls/<span
+                                class="text-blue fw-bold txt_module">shell</span>/pulls?q=author:<span
                                 class="text-purple fw-bold txt_username">dtxe</span></a>
                     </p>
 
@@ -232,10 +232,11 @@
                 el.checked = false;
             });
 
-            // update the main link
-            document.getElementById('url_orgsearch').href = `https://github.com/UofT-DSI/${window.module}/pulls/${window.username}`;
+            // update the uoft repo link
+            document.getElementById('url_orgsearch').href = `https://github.com/UofT-DSI/${window.module}/pulls?q=author:${window.username}`;
             window.localStorage.setItem('username', window.username);
 
+            // update the main link
             let mainlink_html;
             if (window.module == 'git') {
                 // special exception for git
