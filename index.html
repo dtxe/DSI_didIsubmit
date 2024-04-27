@@ -120,7 +120,24 @@
                     </p>
                 </div>
             </div>
-            <div class="col-12 collapse" id="msg_uoftrepo">
+            <div class="col-12 collapse" id="q_notfound">
+                <div class="card border-warning p-5 mt-5">
+                    <p>
+                        When clicking the link above, did you see a 404 "This is not the web page you are looking for."
+                        message?
+                    </p>
+
+                    <div class="btn-group mt-5 w-50 mx-auto" role="group" aria-label="Basic radio toggle button group"
+                        id="btn_notfound">
+                        <input type="radio" class="btn-check" name="notfound" id="notfound_1" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="notfound_1">Yes</label>
+
+                        <input type="radio" class="btn-check" name="notfound" id="notfound_2" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="notfound_2">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 collapse" id="q_uoftrepo">
                 <div class="card border-warning p-5 mt-5">
                     <p>
                         Did you erroneously submit your PR in the UofT-DSI repo?
@@ -140,6 +157,15 @@
                         <input type="radio" class="btn-check" name="utr_btn" id="utr_btn2" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="utr_btn2">No 🤷</label>
                     </div>
+                </div>
+            </div>
+            <div class="col-12 collapse" id="msg_notforked">
+                <div class="card border-danger p-5 mt-5">
+                    <p>
+                        ❌ Oops! It seems you might not have forked UofT-DSI/<span
+                            class="text-blue fw-bold txt_module">shell</span> correctly.<br><br>
+                        Please check that you forked the repo, and that you did not change the default repo name.
+                    </p>
                 </div>
             </div>
             <div class="col-12 collapse" id="msg_closeuoftrepo">
@@ -175,7 +201,8 @@
                     documents</a>
                 for
                 confirmation.</p>
-            <p class="small"><a href="https://github.com/dtxe/DSI_didIsubmit" target="_blank">Fork this code on GitHub</a></p>
+            <p class="small"><a href="https://github.com/dtxe/DSI_didIsubmit" target="_blank">Fork this code on
+                    GitHub</a></p>
         </footer>
 
     </div>
@@ -209,24 +236,37 @@
             return c;
         }
 
-        window.c_success = init_collapse('msg_success');
-        window.c_uoftrepo = init_collapse('msg_uoftrepo');
-        window.c_closeuoftrepo = init_collapse('msg_closeuoftrepo');
-        window.c_fail = init_collapse('msg_fail');
-        window.c_ownrepos = init_collapse('card_ownrepos');
+        window.c = {
+            success: init_collapse('msg_success'),
+            uoftrepo: init_collapse('q_uoftrepo'),
+            closeuoftrepo: init_collapse('msg_closeuoftrepo'),
+            fail: init_collapse('msg_fail'),
+            notfound: init_collapse('q_notfound'),
+            notforked: init_collapse('msg_notforked'),
+            ownrepos: init_collapse('card_ownrepos')
+        };
 
         function show_main() {
             if (window.username && window.module) {
-                window.c_ownrepos.show();
+                window.c.ownrepos.show();
+            }
+        }
+
+        function show_only(visible) {
+            for (let key in window.c) {
+                if (visible.includes(key)) {
+                    window.c[key].show();
+                } else {
+                    window.c[key].hide();
+                }
             }
         }
 
         function update_links() {
             // hide all collapses
-            window.c_success.hide();
-            window.c_uoftrepo.hide();
-            window.c_closeuoftrepo.hide();
-            window.c_fail.hide();
+            for (let key in window.c) {
+                window.c[key].hide();
+            }
 
             document.querySelectorAll('input[type=radio]').forEach(function (el) {
                 el.checked = false;
@@ -282,33 +322,22 @@
 
         // bind buttons
         document.getElementById('btnradio1').addEventListener('click', function () {
-            window.c_success.show();
-            window.c_uoftrepo.hide();
-            window.c_closeuoftrepo.hide();
-            window.c_fail.hide();
+            show_only(['ownrepos', 'success']);
         });
         document.getElementById('btnradio2').addEventListener('click', function () {
-            window.c_success.hide();
-            window.c_uoftrepo.show();
-            window.c_closeuoftrepo.hide();
-            window.c_fail.hide();
+            show_only(['ownrepos', 'notfound']);
+        });
+        document.getElementById('notfound_1').addEventListener('click', function () {
+            show_only(['ownrepos', 'notfound', 'notforked']);
+        });
+        document.getElementById('notfound_2').addEventListener('click', function () {
+            show_only(['ownrepos', 'notfound', 'uoftrepo']);
         });
         document.getElementById('utr_btn1').addEventListener('click', function () {
-            window.c_success.hide();
-            window.c_uoftrepo.show();
-            window.c_closeuoftrepo.show();
-            window.c_fail.hide();
-
-            // scroll to the bottom
-            window.scrollTo(0, document.body.scrollHeight);
+            show_only(['ownrepos', 'notfound', 'uoftrepo', 'closeuoftrepo']);
         });
         document.getElementById('utr_btn2').addEventListener('click', function () {
-            window.c_success.hide();
-            window.c_uoftrepo.show();
-            window.c_closeuoftrepo.hide();
-            window.c_fail.show();
-
-            window.scrollTo(0, document.body.scrollHeight);
+            show_only(['ownrepos', 'notfound', 'uoftrepo', 'fail']);
         });
     </script>
 
