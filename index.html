@@ -261,6 +261,7 @@
         // bind the frm_username
         document.getElementById('frm_username').addEventListener('keyup', function () {
             window.username = this.value;
+            window.username = window.username.replace(/[^a-zA-Z0-9-]/g, '');
             document.querySelectorAll('.txt_username').forEach(function (el) {
                 el.innerHTML = window.username;
             });
