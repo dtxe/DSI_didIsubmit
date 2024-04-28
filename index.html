@@ -248,7 +248,9 @@
 
         function show_main() {
             if (window.username && window.module) {
-                window.c.ownrepos.show();
+                show_only(['ownrepos'])
+            } else {
+                show_only([]);
             }
         }
 
@@ -263,11 +265,7 @@
         }
 
         function update_links() {
-            // hide all collapses
-            for (let key in window.c) {
-                window.c[key].hide();
-            }
-
+            // hide all collapses            
             document.querySelectorAll('input[type=radio]').forEach(function (el) {
                 el.checked = false;
             });
